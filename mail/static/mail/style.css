@@ -1,0 +1,70 @@
+textarea {
+    min-height: 400px;
+}
+
+html {
+    height: 100%;
+    width: 98vw;
+}
+
+body {
+    background: url('sarah-dorweiler-x2Tmfd1-SgA-unsplash.jpg') no-repeat;
+    background-size:cover;
+}
+
+.center-content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container {
+    height: 100%;
+}
+
+.login-page-container {
+    margin-top: 10%;
+    padding-left: 30%;
+    display: grid;
+    grid-template-rows: min-content min-content;
+    grid-template-columns: 60%;
+    row-gap: 10%;
+    height: 100%;
+}
+
+#login-title {
+    margin-bottom: 15%;
+}
+
+.blur {
+    background: rgba(205, 213, 209, 0.25);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+}
+
+.login-box-container {
+    width: 100%;
+    padding: 5%;
+    border-radius: 5px;
+
+}
+
+.login-input {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.register-choice {
+    margin-top: 5%;
+}
+
+.input-field:hover {
+    border: solid 3px grey;    
+}
+
+.button:hover {
+    transform: scale(1.1);
+    -webkit-transform:scale(1.1);
+}
