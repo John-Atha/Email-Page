@@ -2,44 +2,68 @@
 {% load static %}
 
 {% block body %}
-    <div class="inbox-page-container">
-        
-        <div class="column-1 my-navbar">
-            <div class="my-nav-link">
-                <img class="icon" src="{% static 'mail/inbox-img.png' %}"/>
-                <a class="my-nav-link" href="#" id="inbox">Inbox</a>
+    
+    <div class="inbox-all-page-container">
+        <div class="nav-header row-1">
+            <h2 class="title">
+                Upmail
+            </h2>
+            <div class="log-out-div">
+                <a id="logout" title="Logout" href="{% url 'logout' %}">
+                    <img class="icon" src="{% static 'mail/logout-img.png' %}"/>
+                </a>
             </div>
-            <a class="my-nav-link" href="#" id="compose">Compose</a>
-            <a class="my-nav-link" href="#" id="sent">Sent</a>
-            <a class="my-nav-link" href="#" id="archived">Archived</a>
-            <a class="my-nav-link" id="logout" href="{% url 'logout' %}">Log Out</a>
         </div>
-       
-        <div class="inbox-main-page-container column-2">
-            <h2>{{ request.user.email }}</h2>
+
+        <div class="inbox-page-container row-2">
+            
+            <div class="column-1 my-navbar">
+                <div class="my-nav-link">
+                    <img class="icon" src="{% static 'mail/inbox-img.png' %}"/>
+                    <a class="my-nav-link" href="#" id="inbox">Inbox</a>
+                </div>
+                <div class="my-nav-link">
+                    <img class="icon-small" src="{% static 'mail/addition-img.png' %}"/>
+                    <a class="my-nav-link" href="#" id="compose">Compose</a>
+                </div>
+                <div class="my-nav-link">
+                    <img class="icon-small" src="{% static 'mail/sent-img.png' %}"/>
+                    <a class="my-nav-link" href="#" id="sent">Sent</a>
+                </div>
+                <div class="my-nav-link">
+                    <img class="icon-small" src="{% static 'mail/archive-img.png' %}"/>
+                    <a class="my-nav-link" href="#" id="archived">Archived</a>
+                </div>
+
+            </div>
+        
+            <div class="inbox-main-page-container column-2">
+                <h2>{{ request.user.email }}</h2>
 
 
-            <hr>
+                <hr>
 
-            <div id="emails-view">
+                <div id="emails-view">
+                </div>
+
+                <div id="compose-view">
+                    <h3>New Email</h3>
+                    <form id="compose-form">
+                        <div class="form-group">
+                            From: <input disabled class="form-control" value="{{ request.user.email }}">
+                        </div>
+                        <div class="form-group">
+                            To: <input id="compose-recipients" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="compose-subject" placeholder="Subject">
+                        </div>
+                        <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+                        <input type="submit" class="btn btn-primary"/>
+                    </form>
+                </div>
             </div>
 
-            <div id="compose-view">
-                <h3>New Email</h3>
-                <form id="compose-form">
-                    <div class="form-group">
-                        From: <input disabled class="form-control" value="{{ request.user.email }}">
-                    </div>
-                    <div class="form-group">
-                        To: <input id="compose-recipients" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" id="compose-subject" placeholder="Subject">
-                    </div>
-                    <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-                    <input type="submit" class="btn btn-primary"/>
-                </form>
-            </div>
         </div>
     </div>
 {% endblock %}
