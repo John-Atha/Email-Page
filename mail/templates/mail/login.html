@@ -10,13 +10,13 @@
         </div>
 
         <div class="login-box-container center-content">
-            <h4 class="margin-bottom">Login</h4>
+            <h4 class="margin-bottom-small">Login</h4>
 
             {% if message %}
-                <div>{{ message }}</div>
+                <div class="error-message margin-bottom-small">{{ message }}</div>
             {% endif %}
 
-            <form id="login-form center-content" action="{% url 'login' %}" method="post">
+            <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group login-input">
                     <input autofocus class="form-control input-field" type="email" name="email" placeholder="Email">
