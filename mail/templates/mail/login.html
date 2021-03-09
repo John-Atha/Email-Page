@@ -3,36 +3,41 @@
 
 {% block body %}
 
-    <div class="login-page-container margin-top blur padding-bottom-small padding-top-small">
+    <div class="login-reg-all-page-container flex-layout">    
 
-        <div class="welcome-header center-content margin-top-small">
-            <h2>Welcome</h2>
-        </div>
+        <h1 class="flex-item title-front">Upmail</h1>
+        <div class="login-page-container margin-top blur flex-item padding-bottom-small padding-top-small">
 
-        <div class="login-box-container center-content">
-            <h4 class="margin-bottom-small">Login</h4>
+            <div class="welcome-header center-content margin-top-small">
+                <h2>Welcome</h2>
+            </div>
 
-            {% if message %}
-                <div class="error-message margin-bottom-small">{{ message }}</div>
-            {% endif %}
+            <div class="login-box-container center-content">
+                <h4 class="margin-bottom-small">Login</h4>
 
-            <form action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                <div class="form-group login-input">
-                    <input autofocus class="form-control input-field" type="email" name="email" placeholder="Email">
+                {% if message %}
+                    <div class="error-message margin-bottom-small">{{ message }}</div>
+                {% endif %}
+
+                <form class="login-form" action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input autofocus class="form-control input-field" type="email" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-field" type="password" name="password" placeholder="Password">
+                    </div>
+                    <input class="btn btn-primary button" type="submit" value="Login">
+                </form>
+
+                <div class="register-choice center-content">
+                    <div>
+                        Don't have an account?
+                    </div>
+                    <a href="{% url 'register' %}">Register here</a>
                 </div>
-                <div class="form-group login-input">
-                    <input class="form-control input-field" type="password" name="password" placeholder="Password">
-                </div>
-                <input class="btn btn-primary button" type="submit" value="Login">
-            </form>
-
-            <div class="register-choice center-content">
-                <div>
-                    Don't have an account?
-                </div>
-                <a href="{% url 'register' %}">Register here</a>
             </div>
         </div>
+
     </div>
 {% endblock %}
