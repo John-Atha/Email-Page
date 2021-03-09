@@ -45,6 +45,9 @@ body {
     margin-top: 5%;
 }
 
+.margin-top-big {
+    margin-top: 25vh;
+}
 .margin-top-small {
     margin-top: 2%;
 }
@@ -227,7 +230,7 @@ body {
 
 .my-navbar {
     width: 100%;
-    line-height: 230%;
+    line-height: 300%;
     /*background-color: rgb(186, 221, 248);*/
     background-color: white;
     padding-left: 1%;
