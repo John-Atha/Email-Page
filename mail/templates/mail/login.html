@@ -3,14 +3,14 @@
 
 {% block body %}
 
-    <div class="login-page-container center-content">
+    <div class="login-page-container margin-top blur padding-bottom-small padding-top-small">
 
-        <div class="header center-content">
+        <div class="welcome-header center-content margin-top-small">
             <h2>Welcome</h2>
         </div>
 
-        <div class="login-box-container center-content blur">
-            <h2 id="login-title">Login</h2>
+        <div class="login-box-container center-content">
+            <h4 class="margin-bottom">Login</h4>
 
             {% if message %}
                 <div>{{ message }}</div>
@@ -31,7 +31,7 @@
                 <div>
                     Don't have an account?
                 </div>
-                <a href="{% url 'register' %}">Register here.</a>
+                <a href="{% url 'register' %}">Register here</a>
             </div>
         </div>
     </div>
