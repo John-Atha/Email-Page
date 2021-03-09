@@ -87,9 +87,14 @@ body {
     border: solid 3px rgb(109, 200, 253);    
 }
 
-.button:hover {
+.button:hover, .my-button:hover {
     transform: scale(1.1);
     -webkit-transform:scale(1.1);
+}
+
+.my-button {
+    width: 90% !important;
+    margin-left: 5% !important;
 }
 
 .error-message {
@@ -102,6 +107,10 @@ body {
 
 .column-2 {
     grid-column: 2;
+}
+
+.column-3 {
+    grid-column: 3;
 }
 
 .row-1 {
@@ -118,11 +127,13 @@ body {
 
 .title {
     color: blue;
-    margin-left: 2%;
+    margin-left: 2px;
+    width: min-content;
 }
 
 .title-front {
     color: blue;
+    text-align: center;
 }
 
 @media only screen and (max-width: 820px) {
@@ -153,9 +164,9 @@ body {
 
 /* flexbox stlyes */
 .flex-item-small {
-    flex-grow: 1;
+    /*flex-grow: 1;*/
     height: min-content;
-    width: 250px !important;
+    width: 60px !important;
 }
 
 .flex-item {
@@ -206,6 +217,7 @@ body {
 .inbox-all-page-container {
     display: grid;
     width: 100vw;
+    min-width: 400px;
     grid-template-rows: min-content auto;
     grid-template-columns: 100%;
     height: 100%;
@@ -226,6 +238,10 @@ body {
     background-color: white;
     border-bottom: 0.5px solid grey;
     height: min-content;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: 150px auto 50px;
+    column-gap: 2px;
 }
 
 .my-navbar {
@@ -267,9 +283,7 @@ body {
 }
 
 .log-out-div {
-    position: fixed;
-    top: 2vh;
-    left: 97vw;
+    margin-top:20%;
 }
 
 #compose {
@@ -290,3 +304,16 @@ body {
     height: 25px;
     width: 25px;
 }
+
+#compose-body {
+    height: 200px;
+    min-height: 250px !important;
+    max-height: 250px !important;
+}
+
+/* compose-email styling */
+
+#compose-view {
+    width: 90%;    
+}
+

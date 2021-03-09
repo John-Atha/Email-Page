@@ -4,11 +4,13 @@
 {% block body %}
     
     <div class="inbox-all-page-container">
+        
         <div class="nav-header row-1">
-            <h2 class="title">
+            <h2 class="title column-1">
                 Upmail
             </h2>
-            <div class="log-out-div">
+            <h2 class="account center-content coluns-2">Hello, {{ request.user.email }}</h2>
+            <div class="log-out-div column-3">
                 <a id="logout" title="Logout" href="{% url 'logout' %}">
                     <img class="icon" src="{% static 'mail/logout-img.png' %}"/>
                 </a>
@@ -38,30 +40,29 @@
             </div>
         
             <div class="inbox-main-page-container column-2">
-                <h2>{{ request.user.email }}</h2>
-
-
-                <hr>
 
                 <div id="emails-view">
                 </div>
 
-                <div id="compose-view">
-                    <h3>New Email</h3>
+                <div id="compose-view" class="padding-bottom">
+                    <h3 class="relative-title margin-top-small">New Email</h3>
+                    <hr>
                     <form id="compose-form">
-                        <div class="form-group">
-                            From: <input disabled class="form-control" value="{{ request.user.email }}">
+                        <div class="form-group flex-layout">
+                            <label class="flex-item-small" for="sender">From:</label> 
+                            <input class="form-control flex-item input-field" disabled name="sender" value="{{ request.user.email }}">
+                        </div>
+                        <div class="form-group flex-layout">
+                            <input class="form-control flex-item input-field" name="recipient" id="compose-recipients" placeholder="Recipient(s)">
                         </div>
                         <div class="form-group">
-                            To: <input id="compose-recipients" class="form-control">
+                            <input class="form-control input-field" id="compose-subject" placeholder="Subject">
                         </div>
-                        <div class="form-group">
-                            <input class="form-control" id="compose-subject" placeholder="Subject">
-                        </div>
-                        <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-                        <input type="submit" class="btn btn-primary"/>
+                        <textarea class="form-control input-field" id="compose-body" placeholder="Body"></textarea>
+                        <input type="submit" value="Send" class="my-button margin-top-small btn btn-primary"/>
                     </form>
                 </div>
+
             </div>
 
         </div>
