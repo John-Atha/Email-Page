@@ -1,5 +1,71 @@
 var first = true;
 
+function updateLetterColors(mode="dark") {
+  if (mode=="dark") {
+      document.querySelectorAll('.email-line').forEach(line => {
+        line.style.color="white";
+      })
+  }
+  else {
+    document.querySelectorAll('.email-line').forEach(line => {
+      line.style.color="black";
+    })
+  }
+}
+
+function updateBackroundColor(mode="dark") {
+  if (mode=="dark") {
+      document.querySelector('#main-inbox-container').style.backgroundColor="rgb(39, 12, 57)";
+      document.querySelectorAll('.email-line-unread').forEach(line => {
+        line.style.backgroundColor="black";
+      })
+      document.querySelectorAll('.email-pop-up').forEach(line => {
+        line.style.backgroundColor="grey";
+      })
+  }
+  else {
+    document.querySelector('#main-inbox-container').style.backgroundColor="#c3dded";
+    document.querySelectorAll('.email-line-unread').forEach(line => {
+      line.style.backgroundColor="rgb(218, 244, 247)";
+    })
+    document.querySelectorAll('.email-pop-up').forEach(line => {
+      line.style.backgroundColor="inherit";
+    })  }
+}
+
+function updateNavBarColor(mode="dark") {
+  if (mode=="dark") {
+    document.querySelectorAll('.my-navbar').forEach(bar => {
+      bar.style.backgroundColor="#c3dded";
+    })
+    document.querySelectorAll('.nav-header').forEach(bar => {
+      bar.style.backgroundColor="#c3dded";
+    })           
+  }
+  else {
+    document.querySelectorAll('.my-navbar').forEach(bar => {
+      bar.style.backgroundColor="white";
+    })
+    document.querySelectorAll('.nav-header').forEach(bar => {
+      bar.style.backgroundColor="white";
+    })   }
+}
+
+function updateColors() {
+  const theme_switch = document.querySelector('#switch-1');
+  console.log("change lighting theme");
+  if (theme_switch.checked) {
+      mode="dark";
+  }
+  else {
+      mode="light";
+  }
+  //updateOtherColors(mode);
+  updateBackroundColor(mode);
+  updateNavBarColor(mode);
+  updateLetterColors(mode);
+}
+
 function showCompose() {
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
@@ -112,7 +178,6 @@ function unArchive(id) {
     }
   })
 }
-
 
 function fillpopup(popup, data, id) {
   popup.innerHTML = "";
@@ -285,8 +350,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
 
- document.addEventListener('click', outsideClickListener);
+  document.addEventListener('click', outsideClickListener);
 
+  const theme_switch = document.querySelector('#switch-1');
+  theme_switch.onchange = () => {
+      updateColors();
+  }
   // By default, load the inbox
   load_mailbox('inbox');
 });
