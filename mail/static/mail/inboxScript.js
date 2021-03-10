@@ -39,6 +39,9 @@ function fillBox(data) {
   data.forEach(email => {
     const newEmail = document.createElement('div');
     newEmail.classList.add('email-line');
+    if (email.read===false) {
+      newEmail.classList.add('email-line-unread');
+    }
     newEmail.setAttribute('mailid', email.id);
     const sender = document.createElement('div');
     const subject = document.createElement('div');
@@ -62,6 +65,7 @@ function fillBox(data) {
 }
 
 function fillpopup(popup, data) {
+  popup.innerHTML = "";
   const subject = document.createElement('div');
   subject.classList.add('subject-pop');
   const sender = document.createElement('h4');
@@ -85,7 +89,8 @@ const outsideClickListener = (event) => {
   if (!first) {
     console.log("pop up is opened");
     const popup = document.querySelector('#pop-up-box');
-    if (!popup.contains(event.target)) {
+    const emailsContainer = document.querySelector('#emails-container')
+    if (!popup.contains(event.target) && !emailsContainer.contains(event.target)) {
       popup.style.display="none";
       popup.innerHTML = "";
       removeClickListener();
@@ -106,16 +111,26 @@ function showMailPop(event) {
   console.log(event.target.parentElement);
   console.log(event.target.parentElement.getAttribute('mailid'));
   const id = event.target.parentElement.getAttribute('mailid');
+  //change unread decoration
+  event.target.parentElement.classList.remove('email-line-unread');
+  // make a put request to this id to make it read
+  fetch(`/emails/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      read: true,
+    })
+  })
   let popup=null;
-  if (!document.querySelector('#pop-up-box')) {
+  if (document.querySelector('#pop-up-box')===null) {
+    console.log("------pop up not created yet");
     popup = document.createElement('div');
     popup.classList.add('email-popup');
     popup.setAttribute('id', 'pop-up-box');
-    popup.innerHTML =  `auosgfadjobgfuoasdbuovgfhaduiovfhadpuihvguoasdbv`;
 
     document.querySelector('#main-inbox-container').appendChild(popup);
   }
   else {
+    console.log("------pop up already created");
     popup = document.querySelector('#pop-up-box');
     popup.style.display='block';
     setTimeout( document.addEventListener('click', outsideClickListener),

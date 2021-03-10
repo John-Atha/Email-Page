@@ -330,6 +330,10 @@ body {
     padding-left: 3px;
 }
 
+.email-line-unread {
+    font-weight: bold;
+}
+
 .email-line:hover {
     background-color: rgb(168, 186, 189);
     cursor: pointer;
