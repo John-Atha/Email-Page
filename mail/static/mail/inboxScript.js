@@ -112,20 +112,35 @@ function fillpopup(popup, data, id) {
   body.innerHTML = data.body;
   timestamp.innerHTML = data.timestamp;
 
-  const dateButtonContainer = document.createElement('div');
+  const buttonContainer = document.createElement('div');
   const unreadButton = document.createElement('button');
   const archButton = document.createElement('button');
 
   timestamp.classList.add('margin-top-small');
 
-  dateButtonContainer.classList.add('flex-layout');
-  dateButtonContainer.classList.add('margin-top');
-  dateButtonContainer.classList.add('center-content');
+  buttonContainer.classList.add('flex-layout');
+  buttonContainer.classList.add('margin-top');
+  buttonContainer.classList.add('center-content');
   //unreadButton.classList.add('flex-item');
   //archButton.classList.add('flex-item');
-  unreadButton.classList.add('btn');
-  unreadButton.classList.add('btn-primary');
-  unreadButton.classList.add('button-small-flex');
+
+  const inboxTitle = document.querySelector('#inbox-title');
+
+  if (inboxTitle.innerHTML==="Inbox") {
+    unreadButton.classList.add('btn');
+    unreadButton.classList.add('btn-primary');
+    unreadButton.classList.add('button-small-flex');
+    unreadButton.innerHTML = "Mark as unread";
+    buttonContainer.appendChild(unreadButton);
+    unreadButton.onclick = () => {
+      popup.style.display="none";
+      popup.innerHTML = "";
+      removeClickListener();
+      let mailId = id;
+      unRead(mailId);
+    }
+  }
+
   archButton.classList.add('btn');
   archButton.classList.add('btn-primary');
   archButton.classList.add('button-small-flex');
@@ -133,7 +148,6 @@ function fillpopup(popup, data, id) {
   /*unreadButton.setAttribute('mail-id', id);
   archButton.setAttribute('mail-id', id);*/
 
-  unreadButton.innerHTML = "Mark as unread";
   archButton.innerHTML = "Send to archive";
 
   popup.appendChild(sender);
@@ -145,18 +159,9 @@ function fillpopup(popup, data, id) {
   popup.appendChild(body);
 
   popup.appendChild(timestamp);
-  dateButtonContainer.appendChild(unreadButton);
-  dateButtonContainer.appendChild(archButton);
+  buttonContainer.appendChild(archButton);
 
-  popup.appendChild(dateButtonContainer);
-
-  unreadButton.onclick = () => {
-    popup.style.display="none";
-    popup.innerHTML = "";
-    removeClickListener();
-    let mailId = id;
-    unRead(mailId);
-  }
+  popup.appendChild(buttonContainer);
 
   archButton.onclick = () => {
     popup.style.display="none";
