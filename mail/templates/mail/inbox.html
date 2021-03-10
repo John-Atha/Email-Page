@@ -6,11 +6,15 @@
     <div class="inbox-all-page-container">
         
         <div class="nav-header row-1">
-            <h2 class="title column-1">
+            <h2 class="title row-1 column-1">
                 Upmail
             </h2>
-            <h2 class="account center-content coluns-2">Hello, {{ request.user.email }}</h2>
-            <div class="log-out-div column-3">
+            <h2 class="account center-content row-1 column-2">Hello, {{ request.user.email }}</h2>
+            <div class="switch row-1 column-3 center-content" id="switch-container-1">
+                <input id="switch-1" type="checkbox" class="switch-input" />
+                <label for="switch-1" class="switch-label"></label>
+            </div>
+            <div class="log-out-div row-1 column-4">
                 <a id="logout" title="Logout" href="{% url 'logout' %}">
                     <img class="icon" src="{% static 'mail/logout-img.png' %}"/>
                 </a>
