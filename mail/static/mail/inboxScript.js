@@ -64,7 +64,26 @@ function fillBox(data) {
   });
 }
 
-function fillpopup(popup, data) {
+function unRead(id) {
+  console.log(`Making ${id} unread`);
+  fetch(`/emails/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      read: false,
+    })
+  })
+  let currLines = document.querySelectorAll(`.email-line`);
+  currLines.forEach(line => {
+    console.log(line.getAttribute('mailid'));
+    if (line.getAttribute('mailid')==id) {
+      console.log('found line to bold');
+      line.classList.add('email-line-unread');
+    }
+  })
+  
+}
+
+function fillpopup(popup, data, id) {
   popup.innerHTML = "";
   const subject = document.createElement('div');
   subject.classList.add('subject-pop');
@@ -97,6 +116,9 @@ function fillpopup(popup, data) {
   archButton.classList.add('btn-primary');
   archButton.classList.add('button-small-flex');
 
+  /*unreadButton.setAttribute('mail-id', id);
+  archButton.setAttribute('mail-id', id);*/
+
   unreadButton.innerHTML = "Mark as unread";
   archButton.innerHTML = "Send to archive";
 
@@ -113,6 +135,14 @@ function fillpopup(popup, data) {
   dateButtonContainer.appendChild(archButton);
 
   popup.appendChild(dateButtonContainer);
+
+  unreadButton.onclick = () => {
+    popup.style.display="none";
+    popup.innerHTML = "";
+    removeClickListener();
+    let mailId = id;
+    unRead(mailId);
+  }
 }
 
 const outsideClickListener = (event) => {
@@ -173,7 +203,7 @@ function showMailPop(event) {
   .then(response =>  response.json())
   .then(data => {
     console.log(data);
-    fillpopup(popup, data);
+    fillpopup(popup, data, id);
   })
   .catch(err => {
     console.log(err);
