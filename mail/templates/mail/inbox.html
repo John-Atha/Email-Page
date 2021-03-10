@@ -42,6 +42,11 @@
             <div class="inbox-main-page-container column-2">
 
                 <div id="emails-view">
+                    <h3 id="inbox-title" class="relative-title margin-top-small"></h3>
+                    <hr>
+                    <div id="emails-container">
+                        
+                    </div>
                 </div>
 
                 <div id="compose-view" class="padding-bottom">
@@ -59,7 +64,7 @@
                             <input class="form-control input-field" id="compose-subject" placeholder="Subject">
                         </div>
                         <textarea class="form-control input-field" id="compose-body" placeholder="Body"></textarea>
-                        <input type="submit" value="Send" class="my-button margin-top-small btn btn-primary"/>
+                        <input id="send-mail" type="submit" value="Send" class="my-button margin-top-small btn btn-primary"/>
                     </form>
                 </div>
 
@@ -70,5 +75,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'mail/inbox.js' %}"></script>
+    <script src="{% static 'mail/script.js' %}"></script>
 {% endblock %}
