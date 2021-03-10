@@ -156,9 +156,7 @@ function fillpopup(popup, data, id) {
       let mailId = id;
       unRead(mailId);
     }
-  }
 
-  if (inboxTitle.innerHTML!=="Archive") {
     archButton.classList.add('btn');
     archButton.classList.add('btn-primary');
     archButton.classList.add('button-small-flex');
