@@ -315,7 +315,7 @@ body {
     display: grid;
     width: 90%;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     max-height: 60vh;
 }
 
@@ -340,12 +340,14 @@ body {
 }
 
 .email-popup {
-    height: 70vh;
+    /*height: 70vh;*/
+    min-height: min-content;
     width: 70vw;
+    min-width: 200px;
     position: absolute;
     padding: 2%;
     top: 15vh;
-    left: 20vw;
+    left: 15vw;
     border: 1px solid gray;
     border-radius: 10px;
     background-color: white;
@@ -368,4 +370,18 @@ body {
     height: 200px;
     min-height: 250px !important;
     max-height: 250px !important;
+}
+
+.body-pop {
+    height: 60%;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    padding: 5% 0%;
+}
+
+.button-small-flex {
+    /*flex-grow: 1;*/
+    height: min-content;
+    width: 200px !important;
+    margin: 2%;
 }

@@ -68,20 +68,51 @@ function fillpopup(popup, data) {
   popup.innerHTML = "";
   const subject = document.createElement('div');
   subject.classList.add('subject-pop');
-  const sender = document.createElement('h4');
+  const sender = document.createElement('h5');
   sender.classList.add('sender-pop');
   const body = document.createElement('div');
   body.classList.add('body-pop');
   const timestamp = document.createElement('div');
   timestamp.classList.add('timestamp-pop');
-  sender.innerHTML = data.sender;
+  sender.innerHTML = `From: ${data.sender}`;
   subject.innerHTML = data.subject;
   body.innerHTML = data.body;
   timestamp.innerHTML = data.timestamp;
-  popup.appendChild(subject);
+
+  const dateButtonContainer = document.createElement('div');
+  const unreadButton = document.createElement('button');
+  const archButton = document.createElement('button');
+
+  timestamp.classList.add('margin-top-small');
+
+  dateButtonContainer.classList.add('flex-layout');
+  dateButtonContainer.classList.add('margin-top');
+  dateButtonContainer.classList.add('center-content');
+  //unreadButton.classList.add('flex-item');
+  //archButton.classList.add('flex-item');
+  unreadButton.classList.add('btn');
+  unreadButton.classList.add('btn-primary');
+  unreadButton.classList.add('button-small-flex');
+  archButton.classList.add('btn');
+  archButton.classList.add('btn-primary');
+  archButton.classList.add('button-small-flex');
+
+  unreadButton.innerHTML = "Mark as unread";
+  archButton.innerHTML = "Send to archive";
+
   popup.appendChild(sender);
+  const hr = document.createElement('hr');
+  const hr2 = document.createElement('hr');
+  popup.appendChild(hr);
+  popup.appendChild(subject);
+  popup.appendChild(hr2);
   popup.appendChild(body);
+
   popup.appendChild(timestamp);
+  dateButtonContainer.appendChild(unreadButton);
+  dateButtonContainer.appendChild(archButton);
+
+  popup.appendChild(dateButtonContainer);
 }
 
 const outsideClickListener = (event) => {
@@ -125,6 +156,7 @@ function showMailPop(event) {
     console.log("------pop up not created yet");
     popup = document.createElement('div');
     popup.classList.add('email-popup');
+    popup.setAttribute('mail-id', id);
     popup.setAttribute('id', 'pop-up-box');
 
     document.querySelector('#main-inbox-container').appendChild(popup);
