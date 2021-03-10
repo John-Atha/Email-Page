@@ -97,6 +97,23 @@ function archive(id) {
   })
 }
 
+function unArchive(id) {
+  console.log(`Removing ${id} to archive`);
+  fetch(`emails/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      archived: false,
+    })
+  })
+  let currLines = document.querySelectorAll(`.email-line`);
+  currLines.forEach(line => {
+    if (line.getAttribute('mailid')==id) {
+      line.style.display = "none";
+    }
+  })
+}
+
+
 function fillpopup(popup, data, id) {
   popup.innerHTML = "";
   const subject = document.createElement('div');
@@ -141,14 +158,47 @@ function fillpopup(popup, data, id) {
     }
   }
 
-  archButton.classList.add('btn');
-  archButton.classList.add('btn-primary');
-  archButton.classList.add('button-small-flex');
+  if (inboxTitle.innerHTML!=="Archive") {
+    archButton.classList.add('btn');
+    archButton.classList.add('btn-primary');
+    archButton.classList.add('button-small-flex');
 
-  /*unreadButton.setAttribute('mail-id', id);
-  archButton.setAttribute('mail-id', id);*/
+    /*unreadButton.setAttribute('mail-id', id);
+    archButton.setAttribute('mail-id', id);*/
 
-  archButton.innerHTML = "Send to archive";
+    archButton.innerHTML = "Send to archived";
+    buttonContainer.appendChild(archButton);
+
+    archButton.onclick = () => {
+      popup.style.display="none";
+      popup.innerHTML = "";
+      removeClickListener();
+      let mailId = id;
+      archive(mailId);
+    }
+  }
+
+  if (inboxTitle.innerHTML==="Archive") {
+    archButton.classList.add('btn');
+    archButton.classList.add('btn-primary');
+    archButton.classList.add('button-small-flex');
+
+    /*unreadButton.setAttribute('mail-id', id);
+    archButton.setAttribute('mail-id', id);*/
+
+    archButton.innerHTML = "Remove from archived";
+    buttonContainer.appendChild(archButton);
+
+    archButton.onclick = () => {
+      popup.style.display="none";
+      popup.innerHTML = "";
+      removeClickListener();
+      let mailId = id;
+      unArchive(mailId);
+    }
+  }
+
+
 
   popup.appendChild(sender);
   const hr = document.createElement('hr');
@@ -159,17 +209,9 @@ function fillpopup(popup, data, id) {
   popup.appendChild(body);
 
   popup.appendChild(timestamp);
-  buttonContainer.appendChild(archButton);
 
   popup.appendChild(buttonContainer);
 
-  archButton.onclick = () => {
-    popup.style.display="none";
-    popup.innerHTML = "";
-    removeClickListener();
-    let mailId = id;
-    archive(mailId);
-  }
 }
 
 const outsideClickListener = (event) => {
