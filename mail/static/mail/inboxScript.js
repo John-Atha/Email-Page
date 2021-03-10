@@ -74,13 +74,27 @@ function unRead(id) {
   })
   let currLines = document.querySelectorAll(`.email-line`);
   currLines.forEach(line => {
-    console.log(line.getAttribute('mailid'));
     if (line.getAttribute('mailid')==id) {
-      console.log('found line to bold');
       line.classList.add('email-line-unread');
     }
   })
   
+}
+
+function archive(id) {
+  console.log(`Sending ${id} to archive`);
+  fetch(`emails/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      archived: true,
+    })
+  })
+  let currLines = document.querySelectorAll(`.email-line`);
+  currLines.forEach(line => {
+    if (line.getAttribute('mailid')==id) {
+      line.style.display = "none";
+    }
+  })
 }
 
 function fillpopup(popup, data, id) {
@@ -142,6 +156,14 @@ function fillpopup(popup, data, id) {
     removeClickListener();
     let mailId = id;
     unRead(mailId);
+  }
+
+  archButton.onclick = () => {
+    popup.style.display="none";
+    popup.innerHTML = "";
+    removeClickListener();
+    let mailId = id;
+    archive(mailId);
   }
 }
 
