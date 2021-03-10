@@ -214,6 +214,16 @@ body {
 
 /* inbox-page styles */
 
+@keyframes popup-show {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+
 .inbox-all-page-container {
     display: grid;
     width: 100vw;
@@ -304,6 +314,9 @@ body {
 #emails-container {
     display: grid;
     width: 90%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 60vh;
 }
 
 .email-line {
@@ -319,7 +332,23 @@ body {
 
 .email-line:hover {
     background-color: rgb(168, 186, 189);
+    cursor: pointer;
 }
+
+.email-popup {
+    height: 70vh;
+    width: 70vw;
+    position: absolute;
+    padding: 2%;
+    top: 15vh;
+    left: 20vw;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: white;
+    animation:
+        popup-show 1s;
+}
+
 
 /* compose-email styling */
 

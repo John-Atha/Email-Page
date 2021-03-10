@@ -1,3 +1,5 @@
+var first = true;
+
 function showCompose() {
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
@@ -59,14 +61,76 @@ function fillBox(data) {
   });
 }
 
+function fillpopup(popup, data) {
+  const subject = document.createElement('div');
+  subject.classList.add('subject-pop');
+  const sender = document.createElement('h4');
+  sender.classList.add('sender-pop');
+  const body = document.createElement('div');
+  body.classList.add('body-pop');
+  const timestamp = document.createElement('div');
+  timestamp.classList.add('timestamp-pop');
+  sender.innerHTML = data.sender;
+  subject.innerHTML = data.subject;
+  body.innerHTML = data.body;
+  timestamp.innerHTML = data.timestamp;
+  popup.appendChild(subject);
+  popup.appendChild(sender);
+  popup.appendChild(body);
+  popup.appendChild(timestamp);
+}
+
+const outsideClickListener = (event) => {
+  console.log("clicked at: " + event.target);
+  if (!first) {
+    console.log("pop up is opened");
+    const popup = document.querySelector('#pop-up-box');
+    if (!popup.contains(event.target)) {
+      popup.style.display="none";
+      popup.innerHTML = "";
+      removeClickListener();
+    }
+  }
+  else {
+    first = false;
+  }
+}
+
+const removeClickListener = () => {
+  document.removeEventListener('click', outsideClickListener)
+}
+
 function showMailPop(event) {
   console.log(event);
   console.log(event.target);
   console.log(event.target.parentElement);
   console.log(event.target.parentElement.getAttribute('mailid'));
   const id = event.target.parentElement.getAttribute('mailid');
+  let popup=null;
+  if (!document.querySelector('#pop-up-box')) {
+    popup = document.createElement('div');
+    popup.classList.add('email-popup');
+    popup.setAttribute('id', 'pop-up-box');
+    popup.innerHTML =  `auosgfadjobgfuoasdbuovgfhaduiovfhadpuihvguoasdbv`;
 
+    document.querySelector('#main-inbox-container').appendChild(popup);
+  }
+  else {
+    popup = document.querySelector('#pop-up-box');
+    popup.style.display='block';
+    setTimeout( document.addEventListener('click', outsideClickListener),
+      1000);
+  }
 
+  fetch(`/emails/${id}`)
+  .then(response =>  response.json())
+  .then(data => {
+    console.log(data);
+    fillpopup(popup, data);
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -76,7 +140,9 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
-  
+
+ document.addEventListener('click', outsideClickListener);
+
   // By default, load the inbox
   load_mailbox('inbox');
 });
