@@ -48,6 +48,7 @@
                 <div id="emails-view">
                     <h3 id="inbox-title" class="relative-title margin-top-small"></h3>
                     <hr>
+                    <div id="message"></div>
                     <div id="emails-container">
 
                     </div>
@@ -56,6 +57,7 @@
                 <div id="compose-view" class="padding-bottom">
                     <h3 class="relative-title margin-top-small">New Email</h3>
                     <hr>
+                    <div id="message"></div>
                     <form id="compose-form">
                         <div class="form-group flex-layout">
                             <label class="flex-item-small" for="sender">From:</label> 
@@ -79,5 +81,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'mail/inboxScript.js' %}"></script>
+    <script src="{% static 'mail/script.js' %}"></script>
 {% endblock %}
