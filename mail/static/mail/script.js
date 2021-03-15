@@ -203,6 +203,9 @@ function fillBox(data) {
         case "Archive":
           messageBox.innerHTML = `You don't have any archived messages`;
           break;
+        case "Sent":
+          messageBox.innerHTML = `You haven't sent any messages yet`;
+          break;
       }
       messageBox.style.color="red";
       messageBox.style.fontWeight="bold";}, 1000
@@ -300,6 +303,12 @@ function unArchive(id) {
   })
 }
 
+function reply(sender, subject, body, timestamp) {
+  compose_email(sender,
+                subject.startsWith("Re:") ? subject : (`Re: ${subject}`),
+                `On ${timestamp} ${sender} wrote:\n ${body}`);
+}
+
 function fillpopup(popup, data, id) {
   popup.innerHTML = "";
   const subject = document.createElement('div');
@@ -321,6 +330,7 @@ function fillpopup(popup, data, id) {
   const buttonContainer = document.createElement('div');
   const unreadButton = document.createElement('button');
   const archButton = document.createElement('button');
+  const replyButton = document.createElement('button');
 
   timestamp.classList.add('margin-top-small');
 
@@ -346,6 +356,22 @@ function fillpopup(popup, data, id) {
       unRead(mailId);
     }
 
+
+
+    replyButton.classList.add('btn');
+    replyButton.classList.add('btn-primary');
+    replyButton.classList.add('button-small-flex');
+    replyButton.innerHTML = "Reply";
+    buttonContainer.appendChild(replyButton);
+
+    replyButton.onclick = () => {
+      popup.style.display = "none";
+      popup.innerHTML = "";
+      removeClickListener();
+      reply(data.sender, data.subject, data.body, data.timestamp);
+    }
+
+
     archButton.classList.add('btn');
     archButton.classList.add('btn-primary');
     archButton.classList.add('button-small-flex');
@@ -363,6 +389,7 @@ function fillpopup(popup, data, id) {
       let mailId = id;
       archive(mailId);
     }
+
   }
 
   if (inboxTitle.innerHTML==="Archive") {
@@ -476,7 +503,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
-  document.querySelector('#compose').addEventListener('click', compose_email);
+  document.querySelector('#compose').addEventListener('click', () => compose_email('','',''));
 
   document.addEventListener('click', outsideClickListener);
 
@@ -488,13 +515,13 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
-function compose_email() {
+function compose_email(defRec="", defSubj="", defBod="") {
 
   showCompose();
   // Clear out composition fields
-  document.querySelector('#compose-recipients').value = '';
-  document.querySelector('#compose-subject').value = '';
-  document.querySelector('#compose-body').value = '';
+  document.querySelector('#compose-recipients').value = defRec;
+  document.querySelector('#compose-subject').value = defSubj;
+  document.querySelector('#compose-body').value = defBod;
   const send = document.querySelector('#send-mail');
   send.addEventListener('click', (event) => sendmail(event));
 
