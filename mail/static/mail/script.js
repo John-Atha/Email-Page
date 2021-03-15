@@ -306,11 +306,14 @@ function fillpopup(popup, data, id) {
   subject.classList.add('subject-pop');
   const sender = document.createElement('h5');
   sender.classList.add('sender-pop');
+  const receivers = document.createElement('h5');
+  receivers.classList.add('sender-pop');
   const body = document.createElement('div');
   body.classList.add('body-pop');
   const timestamp = document.createElement('div');
   timestamp.classList.add('timestamp-pop');
   sender.innerHTML = `From: ${data.sender}`;
+  receivers.innerHTML = `To: ${data.recipients}`
   subject.innerHTML = data.subject;
   body.innerHTML = data.body;
   timestamp.innerHTML = data.timestamp;
@@ -385,6 +388,7 @@ function fillpopup(popup, data, id) {
 
 
   popup.appendChild(sender);
+  popup.appendChild(receivers);
   const hr = document.createElement('hr');
   const hr2 = document.createElement('hr');
   popup.appendChild(hr);
