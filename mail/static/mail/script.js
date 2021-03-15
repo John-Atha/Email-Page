@@ -44,6 +44,7 @@ function updateNavBarColor(mode="dark") {
     document.querySelectorAll('.my-navbar').forEach(bar => {
       //bar.style.backgroundColor="#c3dded";
       bar.style.backgroundColor="rgb(147, 124, 163)";
+      //bar.style.backgroundColor="black";
       bar.style.color="white"
     })
     document.querySelectorAll('.nav-header').forEach(bar => {
@@ -142,6 +143,22 @@ function updateModalColor() {
   })
 }
 
+function updateButtonColors() {
+  const theme_switch = document.querySelector('#switch-1');
+  document.querySelectorAll('.btn').forEach(pop => {
+    pop.style.color = theme_switch.checked ? "white" : "white";
+    pop.style.backgroundColor = theme_switch.checked ? "rgb(39, 12, 57)" : "blue";
+    pop.style.borderColor = theme_switch.checked ? "rgb(39, 12, 57)" : "blue";
+  })
+  if (document.querySelector('#send-mail')) {
+    const send = document.querySelector('#send-mail');
+    send.style.color = theme_switch.checked ? "white" : "white";
+    send.style.backgroundColor = theme_switch.checked ? "rgb(147, 124, 163)" : "blue";
+    send.style.borderColor = theme_switch.checked ? "rgb(147, 124, 163)" : "blue";
+
+  }
+}
+
 function updateColors() {
   const theme_switch = document.querySelector('#switch-1');
   console.log("change lighting theme");
@@ -155,6 +172,7 @@ function updateColors() {
   updateBackroundColor(mode);
   updateNavBarColor(mode);
   updateLetterColors(mode);
+  updateButtonColors();
 }
 
 function showCompose() {
@@ -532,7 +550,7 @@ function compose_email(defRec="", defSubj="", defBod="") {
   document.querySelector('#compose-body').value = defBod;
   const send = document.querySelector('#send-mail');
   send.addEventListener('click', (event) => sendmail(event));
-
+  updateColors();
 }
 
 function load_mailbox(mailbox, message="", messageColor="") {
