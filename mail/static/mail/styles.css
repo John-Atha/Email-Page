@@ -272,12 +272,19 @@ body {
     max-height: min-content;
     width: 100% !important;
     margin-left: 2%;
+    border-radius: 7px;
 }
 
-.my-nav-link:hover {
+.my-nav-sub-link:hover {
     text-decoration: none;
+}
+
+.my-light-nav-link:hover {
     background-color: var(--color2);
-    border-radius: 7px;
+}
+
+.my-dark-nav-link:hover {
+    background-color: rgb(130, 92, 156);
 }
 
 #inbox {

@@ -52,6 +52,10 @@ function updateNavBarColor(mode="dark") {
       bar.style.color="white"
     })
     document.querySelectorAll('.my-nav-link').forEach(bar => {
+      bar.classList.remove('my-light-nav-link');
+      bar.classList.add('my-dark-nav-link');
+    })
+    document.querySelectorAll('.my-nav-sub-link').forEach(bar => {
       bar.style.color="white"
     })
     document.querySelectorAll('.title').forEach(bar => {
@@ -83,6 +87,10 @@ function updateNavBarColor(mode="dark") {
       bar.style.color="black"
     })   
     document.querySelectorAll('.my-nav-link').forEach(bar => {
+      bar.classList.remove('my-dark-nav-link');
+      bar.classList.add('my-light-nav-link');
+    })
+    document.querySelectorAll('.my-nav-sub-link').forEach(bar => {
       bar.style.color="blue"
     })
     document.querySelectorAll('.title').forEach(bar => {
@@ -242,7 +250,7 @@ function fillBox(data) {
     
     newEmail.addEventListener('click', (event) => showMailPop(event));
     updateColors();
-    if (haveUnread) {
+    if (haveUnread && category==="Inbox") {
       const messageBox = document.querySelector('#message');
       messageBox.innerHTML = "You have some unread messages";
       messageBox.style.color="green";
