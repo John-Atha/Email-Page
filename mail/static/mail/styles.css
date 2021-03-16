@@ -337,9 +337,13 @@ body {
     padding-left: 3px;
 }
 
+.email-line-read {
+    background-color: inherit;
+}
+
 .email-line-unread {
     font-weight: bold;
-    /*background-color: rgb(218, 244, 247);*/
+    background-color: rgb(218, 244, 247);
 }
 
 .email-line:hover {

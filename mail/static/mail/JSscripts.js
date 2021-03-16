@@ -1,5 +1,5 @@
 var first = true;
-
+var firstEvent = true;
 function updateLetterColors(mode="dark") {
   if (mode=="dark") {
       document.querySelectorAll('.email-line').forEach(line => {
@@ -20,10 +20,15 @@ function updateBackroundColor(mode="dark") {
     pop.style.backgroundColor = theme_switch.checked ? "rgb(130, 92, 156)" : "blue";
     pop.style.borderColor = theme_switch.checked ? "rgb(130, 92, 156)" : "blue";
   })
+  document.querySelectorAll('.email-line-read').forEach(line => {
+    line.style.backgroundColor="inherit";
+    line.style.fontWeight="normal";
+  })
   if (mode=="dark") {
       document.querySelector('#main-inbox-container').style.backgroundColor="rgb(39, 12, 57)";
       document.querySelectorAll('.email-line-unread').forEach(line => {
         line.style.backgroundColor="rgb(130, 92, 156)";
+        line.style.fontWeight="bold";
       })
       document.querySelectorAll('.email-pop-up').forEach(line => {
         line.style.backgroundColor="grey";
@@ -33,6 +38,7 @@ function updateBackroundColor(mode="dark") {
     document.querySelector('#main-inbox-container').style.backgroundColor="#c3dded";
     document.querySelectorAll('.email-line-unread').forEach(line => {
       line.style.backgroundColor="rgb(218, 244, 247)";
+      line.style.fontWeight="bold";
     })
     document.querySelectorAll('.email-pop-up').forEach(line => {
       line.style.backgroundColor="inherit";
@@ -244,6 +250,9 @@ function fillBox(data) {
       haveUnread = true;
       newEmail.classList.add('email-line-unread');
     }
+    else {
+      newEmail.classList.add('email-line-read');
+    }
     newEmail.setAttribute('mailid', email.id);
     const sender = document.createElement('div');
     const subject = document.createElement('div');
@@ -266,7 +275,15 @@ function fillBox(data) {
 
     container.appendChild(newEmail);
     
-    newEmail.addEventListener('click', (event) => showMailPop(event));
+    newEmail.addEventListener('click', (event) => {
+      showMailPop(event);
+      //newEmail.classList.remove('email-line-unread');
+      newEmail.classList.remove('email-line-unread');
+      newEmail.classList.add('email-line-read');
+      const theme_switch = document.querySelector('#switch-1');
+      updateBackroundColor(theme_switch.checked ? "dark" : "light");
+
+    });
     updateColors();
     if (haveUnread && category==="Inbox") {
       const messageBox = document.querySelector('#message');
@@ -292,6 +309,8 @@ function unRead(id) {
   currLines.forEach(line => {
     if (line.getAttribute('mailid')==id) {
       line.classList.add('email-line-unread');
+      const theme_switch = document.querySelector('#switch-1');
+      updateBackroundColor(theme_switch.checked ? "dark" : "light");
     }
   })
   
@@ -549,7 +568,11 @@ function compose_email(defRec="", defSubj="", defBod="") {
   document.querySelector('#compose-subject').value = defSubj;
   document.querySelector('#compose-body').value = defBod;
   const send = document.querySelector('#send-mail');
-  send.addEventListener('click', (event) => sendmail(event));
+  //send.removeEventListener('click', (event) => sendmail(event));
+  if (firstEvent) {
+    send.addEventListener('click', (event) => sendmail(event));
+    firstEvent = false;
+  }
   updateColors();
 }
 
@@ -568,7 +591,9 @@ function load_mailbox(mailbox, message="", messageColor="") {
       messageBox.style.color=messageColor;
       messageBox.style.fontWeight="bold";
     }
-    messageBox.innerHTML=""
+    setTimeout( () => {
+      messageBox.innerHTML=""
+      }, 1000);
   }
   else {
     const messageBox = document.querySelector('#message');
