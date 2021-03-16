@@ -158,10 +158,9 @@ function updateButtonColors() {
   })
   if (document.querySelector('#send-mail')) {
     const send = document.querySelector('#send-mail');
-    send.style.color = theme_switch.checked ? "white" : "white";
+    send.style.color = "white";
     send.style.backgroundColor = theme_switch.checked ? "rgb(147, 124, 163)" : "blue";
     send.style.borderColor = theme_switch.checked ? "rgb(147, 124, 163)" : "blue";
-
   }
 }
 
@@ -351,7 +350,7 @@ function unArchive(id) {
 function reply(sender, subject, body, timestamp) {
   compose_email(sender,
                 subject.startsWith("Re:") ? subject : (`Re: ${subject}`),
-                `On ${timestamp} ${sender} wrote:\n ${body}`);
+                `On ${timestamp} ${sender} wrote:\n ${body}\n\n`);
 }
 
 function fillpopup(popup, data, id) {
